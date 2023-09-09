@@ -1,6 +1,8 @@
 pipeline {
-    agent any
-
+  //  agent any
+agent{
+    label 'slavenode'
+}
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "maven_home"
@@ -19,7 +21,7 @@ pipeline {
             stage('stage 2->Compiling code ') {
             steps {
                 // Get some code from a GitHub repository
-                bat "mvn compile"
+                bat "mvn clean compile"
 
                 
             }
@@ -38,15 +40,14 @@ stage('stage 4->Packaging code ') {
 
                 
             }
-          //  }
-         //   post {
-                // If Maven was able to run the tests, even if some of the test
-                // failed, record the test results and archive the jar file.
-               // success {
-                 //   junit '**/target/surefire-reports/TEST-*.xml'
-                  //  archiveArtifacts 'target/*.jar'
-               // }
-          //  }
-        }
-    }
+       //     }
+           post {
+                
+                failure {
+                 //emailext body: 'Build failed', subject: 'Build failed', to: 'bhagyashree.mohan@gmail.com'
+              echo "some stage failed..pls check"
+                }
+           }
+      
+}}
 }
