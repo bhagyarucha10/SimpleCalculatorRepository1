@@ -20,7 +20,7 @@ class Demo {
 	    public void testForSub()
 	    {
 	       int x=obj.sub(14, 4);
-	        assertEquals(11,x);
+	        assertEquals(12,x);
 	    }
 	
 
